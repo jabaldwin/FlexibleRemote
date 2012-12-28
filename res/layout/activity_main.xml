@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginTop="152dp"
+        android:onClick="sendClick"
         android:padding="60dp"
         android:text="@string/click" />
 
