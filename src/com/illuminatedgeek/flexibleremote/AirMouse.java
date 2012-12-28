@@ -1,7 +1,5 @@
 package com.illuminatedgeek.flexibleremote;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -11,23 +9,23 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.Button;
 import android.widget.ToggleButton;
 
-public class MainActivity extends Activity implements SensorEventListener {
+public class AirMouse extends Activity implements SensorEventListener {
 
 	private SensorManager mSensorManager;
 	private Sensor mAccel;
 	private Sensor mMagnet;
-	public Handler handler = new Handler();
-	public DatagramSocket ds;
-	public DatagramPacket dp;
 	private boolean send = false;
-	
+	private Button clickButton;
+
 	private PacketCannon pc;
 	private DiviningRod dr;
-	
+
 	final int SENSOR_ACCURACY = SensorManager.SENSOR_DELAY_GAME;
 
 	// default ip
@@ -39,12 +37,25 @@ public class MainActivity extends Activity implements SensorEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_mouse);
 
 		// Get an instance of the SensorManager
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE); 
 		mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		mMagnet = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+		
+		clickButton = (Button) findViewById(R.id.ButtonClick);
+		clickButton.setOnTouchListener(new OnTouchListener(){
+			public boolean onTouch(View v, MotionEvent event){
+				int action = event.getAction() & MotionEvent.ACTION_MASK;
+				if(action == MotionEvent.ACTION_DOWN){
+					pc.sendPacket("a:leftDown");
+				} else if (action == MotionEvent.ACTION_UP){
+					pc.sendPacket("a:leftUp");
+				}
+				return true;
+			}
+		});
 		
 		try {
 			pc = new PacketCannon(SERVERIP, SERVERPORT);
@@ -55,14 +66,14 @@ public class MainActivity extends Activity implements SensorEventListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		dr = new DiviningRod();
 	}
-	
+
 	public void toggleSend(View view) {
 		send = ((ToggleButton) view).isChecked();
 	}
-	
+
 	@Override
 	public final void onAccuracyChanged(Sensor sensor, int accuracy) {
 		// Placeholder to satisfy SensorEventListener
@@ -88,9 +99,14 @@ public class MainActivity extends Activity implements SensorEventListener {
 		super.onPause();
 		mSensorManager.unregisterListener(this);
 	}
-	
-	public void sendClick(View view) {
-		pc.sendPacket("a:leftClick");
+
+	public void clickTouch(View view, MotionEvent event) {
+		int action = event.getAction() & MotionEvent.ACTION_MASK;
+		if(action == MotionEvent.ACTION_DOWN){
+			pc.sendPacket("a:leftDown");
+		} else if (action == MotionEvent.ACTION_UP){
+			pc.sendPacket("a:leftUp");
+		}
 	}
 
 	@Override
