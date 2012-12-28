@@ -13,7 +13,6 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.ToggleButton;
 
 public class MainActivity extends Activity implements SensorEventListener {
@@ -21,7 +20,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 	private SensorManager mSensorManager;
 	private Sensor mAccel;
 	private Sensor mMagnet;
-	public TextView serverStatus;
 	public Handler handler = new Handler();
 	public DatagramSocket ds;
 	public DatagramPacket dp;
@@ -47,8 +45,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE); 
 		mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		mMagnet = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-
-		serverStatus = (TextView) findViewById(R.id.server_status);
 		
 		try {
 			pc = new PacketCannon(SERVERIP, SERVERPORT);
