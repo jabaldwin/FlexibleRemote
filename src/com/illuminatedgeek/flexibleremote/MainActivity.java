@@ -88,13 +88,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 		super.onPause();
 		mSensorManager.unregisterListener(this);
 	}
-
-	public void openSocket(View view) {
-
-	}
-
-	public void sendSocket(View view) {
-		pc.sendPacket("Test");
+	
+	public void sendClick(View view) {
+		pc.sendPacket("a:leftClick");
 	}
 
 	@Override
