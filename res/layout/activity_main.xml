@@ -7,18 +7,22 @@
     android:orientation="vertical" >
 
     <Button
+        android:id="@+id/airmouse"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:onClick="airmouseStart"
         android:text="@string/airmouse" />
 
     <Button
+        android:id="@+id/calibrate"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="@string/calibrate" />
 
     <Button
+        android:id="@+id/settings"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

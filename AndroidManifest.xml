@@ -17,7 +17,11 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.illuminatedgeek.flexibleremote.AirMouse"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:parentActivityName="com.illuminatedgeek.flexibleremote.MainMenu" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.illuminatedgeek.flexibleremote.MainMenu" />
         </activity>
         <activity android:name="com.illuminatedgeek.flexibleremote.MainMenu">
             <intent-filter>
