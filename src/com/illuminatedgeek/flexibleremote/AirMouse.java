@@ -30,7 +30,7 @@ public class AirMouse extends Activity implements SensorEventListener {
 	final int SENSOR_ACCURACY = SensorManager.SENSOR_DELAY_GAME;
 
 	// default ip
-	public static String SERVERIP = "192.168.0.197";
+	public static String SERVERIP = "192.168.0.189";
 
 	// designate a port
 	public static final int SERVERPORT = 7777;
@@ -59,6 +59,7 @@ public class AirMouse extends Activity implements SensorEventListener {
 			}
 		});
 		
+		// The NewAPI Lint suppressant is safe because we check if the phone is running 3.0 or higher before manipulating the Action Bar
 		if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB){
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
@@ -89,7 +90,7 @@ public class AirMouse extends Activity implements SensorEventListener {
 	public final void onSensorChanged(SensorEvent event) {
 		dr.sensorChanged(event);
 		if(send){
-			pc.sendPacket("x:"+dr.m_lastYaw, "y:"+dr.m_lastPitch);
+			pc.sendPacket("yaw:"+dr.m_lastYaw, "pitch:"+dr.m_lastPitch, "roll:"+dr.m_lastRoll);
 		}
 	}
 
