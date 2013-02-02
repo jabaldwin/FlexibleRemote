@@ -10,6 +10,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
 public class Calibrate extends Activity implements SensorEventListener {
 
@@ -81,4 +82,7 @@ public class Calibrate extends Activity implements SensorEventListener {
 		pc.sendPacket("yaw:"+dr.m_lastYaw, "pitch:"+dr.m_lastPitch, "roll:"+dr.m_lastRoll);
 	}
 
+	public void sendCal(View view){
+		pc.sendPacket("a:calibrate");
+	}
 }
