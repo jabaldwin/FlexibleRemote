@@ -17,4 +17,8 @@ public class MainMenu extends Activity {
 	public void airmouseStart(View view){
 		startActivity(new Intent(this, AirMouse.class));
 	}
+	
+	public void calibrateStart(View view){
+		startActivity(new Intent(this, Calibrate.class));
+	}
 }
