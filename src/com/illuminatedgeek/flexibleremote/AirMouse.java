@@ -3,7 +3,6 @@ package com.illuminatedgeek.flexibleremote;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -27,7 +26,7 @@ public class AirMouse extends Activity implements SensorEventListener {
 	private PacketCannon pc;
 	private DiviningRod dr;
 
-	final int SENSOR_ACCURACY = SensorManager.SENSOR_DELAY_GAME;
+	final int SENSOR_ACCURACY = SensorManager.SENSOR_DELAY_FASTEST;
 
 	// default ip
 	public static String SERVERIP = "192.168.0.189";
@@ -35,7 +34,6 @@ public class AirMouse extends Activity implements SensorEventListener {
 	// designate a port
 	public static final int SERVERPORT = 7777;
 
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,10 +57,7 @@ public class AirMouse extends Activity implements SensorEventListener {
 			}
 		});
 		
-		// The NewAPI Lint suppressant is safe because we check if the phone is running 3.0 or higher before manipulating the Action Bar
-		if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB){
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		try {
 			pc = new PacketCannon(SERVERIP, SERVERPORT);
