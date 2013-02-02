@@ -78,7 +78,7 @@ public class Calibrate extends Activity implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent arg0) {
 		dr.sensorChanged(arg0);
-		
+		pc.sendPacket("yaw:"+dr.m_lastYaw, "pitch:"+dr.m_lastPitch, "roll:"+dr.m_lastRoll);
 	}
 
 }
